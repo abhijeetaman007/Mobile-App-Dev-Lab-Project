@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MADLabProject</string>
+    <string name="app_name">BloodBankByVinayak</string>
 
     <string name="real_time_db_firebase">https://bloodbankbyvinayak-default-rtdb.firebaseio.com/</string>
 

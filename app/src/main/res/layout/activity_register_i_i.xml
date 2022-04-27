@@ -77,6 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="Tehsil"
+            android:visibility="gone"
             android:textColorHint="#000000"
             app:hintTextColor="#000000">
 
@@ -104,6 +105,7 @@
                 android:layout_width="match_parent"
                 android:inputType="textCapWords"
                 android:singleLine="true"
+                android:visibility="gone"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,14 +118,7 @@
             android:onClick="registerIII"
             android:text="Next" />
 
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:layout_marginTop="10dp"
-            app:indicatorColor="@android:color/holo_green_light"
-            app:indeterminateAnimationType="disjoint"
-            />
+
 
     </LinearLayout>
 

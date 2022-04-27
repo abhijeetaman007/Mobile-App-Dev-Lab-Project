@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.Project.MADLabProject">
+    package="com.vinayak09.bloodbankbyvinayak">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -13,16 +13,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BloodBankByVinayak">
-        <activity android:name="com.Project.MADLabProject.DisplayDonorsActivity"></activity>
-        <activity android:name="com.Project.MADLabProject.DispalyRequestsActivity" />
-        <activity android:name="com.Project.MADLabProject.RegisterIIIActivity" />
-        <activity android:name="com.Project.MADLabProject.RegisterIIActivity" />
-        <activity android:name="com.Project.MADLabProject.RegisterIActivity" />
-        <activity android:name="com.Project.MADLabProject.LoginScreenActivity" />
+        <activity android:name=".DisplayDonorsActivity"></activity>
+        <activity android:name=".DispalyRequestsActivity" />
+        <activity android:name=".RegisterIIIActivity" />
+        <activity android:name=".RegisterIIActivity" />
+        <activity android:name=".RegisterIActivity" />
+        <activity android:name=".LoginScreenActivity" />
         <activity
-            android:name="com.Project.MADLabProject.SplashScreen"
-            android:theme="@style/Theme.BloodBankByVinayakNoStatusBar"
-            android:exported="true">
+            android:name=".SplashScreen"
+            android:theme="@style/Theme.BloodBankByVinayakNoStatusBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

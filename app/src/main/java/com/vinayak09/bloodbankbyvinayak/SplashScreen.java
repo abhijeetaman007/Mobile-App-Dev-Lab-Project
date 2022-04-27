@@ -1,4 +1,4 @@
-package com.Project.MADLabProject;
+package com.vinayak09.bloodbankbyvinayak;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +13,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.Project.MADLabProject.model.User;
+import com.vinayak09.bloodbankbyvinayak.model.User;
 
 //Programmed by Vinayak Patil
 //On Tue, 11-05-21
@@ -39,13 +39,12 @@ public class SplashScreen extends AppCompatActivity {
                     startActivity(new Intent(SplashScreen.this,LoginScreenActivity.class));
                     SplashScreen.this.finish();
                 }
-
             }
         }.start();
     }
 
     private void getSelf() {
-        FirebaseDatabase.getInstance().getReference("Donors/"+user.getUid())
+        FirebaseDatabase.getInstance("https://madlabproject-17edc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Donors/"+user.getUid())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

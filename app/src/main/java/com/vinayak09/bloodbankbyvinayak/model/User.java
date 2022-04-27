@@ -1,4 +1,4 @@
-package com.Project.MADLabProject.model;
+package com.vinayak09.bloodbankbyvinayak.model;
 
 public class User {
     String FName,LName,UID,Email,BloodGroup,Mobile,State,District,Tehsil,Village,Step, Visible,RequestBlood;

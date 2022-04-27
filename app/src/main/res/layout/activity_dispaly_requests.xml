@@ -10,6 +10,7 @@
     <RelativeLayout
         android:layout_alignParentTop="true"
         android:id="@+id/relative"
+        android:background="#37FF0000"
         android:layout_width="match_parent"
         android:layout_height="110dp">
 
@@ -51,12 +52,13 @@
                 android:textAlignment="center"
                 android:padding="10dp"
                 android:textSize="12sp"
-                android:text="ALL"
+                android:hint="ALL"
                 android:id="@+id/districtFilterRequest"
                 android:imeActionLabel=""
                 android:imeOptions="actionDone"
                 android:inputType="textCapCharacters"
                 android:layout_width="100dp"
+                android:textAllCaps="false"
                 android:layout_height="wrap_content"
                 android:background="@drawable/square_border"/>
 
@@ -96,11 +98,12 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/requestList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/relative"
         android:layout_above="@id/relative1"
-        android:id="@+id/requestList"/>
+        android:layout_below="@id/relative"
+        android:layout_marginTop="10dp" />
 
     <RelativeLayout
         android:layout_marginStart="20dp"
@@ -113,22 +116,23 @@
 
         <com.google.android.material.button.MaterialButton
 
+            android:id="@+id/btnAddRequest"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textAllCaps="false"
-            android:text="Request Blood"
+            android:layout_alignParentBottom="true"
             android:onClick="requestBlood"
-            android:id="@+id/btnAddRequest"
-            android:layout_above="@id/btnViewDonors"/>
+            android:text="Request Blood"
+            android:textAllCaps="false" />
 
         <com.google.android.material.button.MaterialButton
-            android:layout_alignParentBottom="true"
+            android:id="@+id/btnViewDonors"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="View Donors"
-            android:textAllCaps="false"
+            android:layout_alignParentBottom="true"
             android:onClick="viewDonorsList"
-            android:id="@+id/btnViewDonors"/>
+            android:visibility="gone"
+            android:text="View Donors"
+            android:textAllCaps="false" />
 
     </RelativeLayout>
 

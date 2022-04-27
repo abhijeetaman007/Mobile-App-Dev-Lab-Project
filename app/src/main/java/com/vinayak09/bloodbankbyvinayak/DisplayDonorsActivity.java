@@ -1,4 +1,4 @@
-package com.Project.MADLabProject;
+package com.vinayak09.bloodbankbyvinayak;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,53 +23,44 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.Project.MADLabProject.adapters.UserAdapter;
-import com.Project.MADLabProject.model.User;
+import com.vinayak09.bloodbankbyvinayak.adapters.UserAdapter;
+import com.vinayak09.bloodbankbyvinayak.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DispalyRequestsActivity extends AppCompatActivity {
+public class DisplayDonorsActivity extends AppCompatActivity {
+
 
     RecyclerView list;
-    ArrayList<User>requests,temp;
     UserAdapter adapter;
+    ArrayList<User> users,temp;
     EditText districtFilter;
     User self;
     String uid = FirebaseAuth.getInstance().getUid();
     PopupMenu popupMenu;
 
-    com.google.android.material.button.MaterialButton requestCancelBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dispaly_requests);
-
+        setContentView(R.layout.activity_display_donors);
 
         initializeComponents();
-        getRequests();
-
-
+        getDonors();
     }
 
 
-    private void updateList(String toString) {
-        temp.clear();
-        for( User v : requests){
-            if(v.getDistrict().toUpperCase().contains(toString)||toString.equalsIgnoreCase("ALL")) {
-                System.out.println(v.getDistrict());
-                temp.add(v);
-            }
-        }
-        adapter.updateList(temp);
-    }
 
-    private void initializeComponents() {
-        requestCancelBtn = findViewById(R.id.btnAddRequest);
-        popupMenu = new PopupMenu(this,findViewById(R.id.more));
-        popupMenu.getMenuInflater().inflate(R.menu.context_menu,popupMenu.getMenu());
+    void initializeComponents() {
+
+
+
+        popupMenu = new PopupMenu(this, findViewById(R.id.more));
+        popupMenu.getMenuInflater().inflate(R.menu.donors_menu,popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(item -> {
+
+
             if(item.getItemId() == R.id.changePass){
                 FirebaseAuth.getInstance().sendPasswordResetEmail(self.getEmail());
                 Snackbar snack = Snackbar.make(findViewById(android.R.id.content),"Password Reset Link Sent On Registered Email.", Snackbar.LENGTH_LONG);
@@ -76,40 +68,53 @@ public class DispalyRequestsActivity extends AppCompatActivity {
                 FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view1.getLayoutParams();
                 params.gravity = Gravity.CENTER_VERTICAL;
                 view1.setLayoutParams(params);
+
+                if(self!=null) {
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(self.getEmail());
+                }else {
+                    snack.setText("Error Occurred!");
+                }
+
                 snack.show();
             }else if(item.getItemId() == R.id.logout){
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(this,SplashScreen.class));
-                DispalyRequestsActivity.this.finish();
+                DisplayDonorsActivity.this.finish();
+            }else if(item.getItemId() == R.id.visibleDonors){
+                if(item.isChecked()){
+                    item.setChecked(false);
+                    updateVisible(false);
+                }else {
+                    item.setChecked(true);
+                    updateVisible(true);
+                }
             }
             return true;
         });
-
+        self = new User();
+        districtFilter = findViewById(R.id.districtFilter);
+        list = findViewById(R.id.donorsList);
+        users = new ArrayList<>();
         temp = new ArrayList<>();
-        requests = new ArrayList<>();
-        districtFilter = findViewById(R.id.districtFilterRequest);
-        list = findViewById(R.id.requestList);
-        requests = new ArrayList<>();
-        adapter = new UserAdapter(this, requests, position -> {
-            //call button handle
+        adapter = new UserAdapter(this, users, position -> {
+            //Handle call button event
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:"+temp.get(position).getMobile()));
             startActivity(intent);
         }, position -> {
-            //share button handle
+            //Handle share button event
             User sent = temp.get(position);
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TITLE,"Be Hero, Donate Blood.");
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "*Its Urgent.*\n"+"Here is the Information about blood Request:\n"+sent.getFName()+" "+sent.getLName()+"\nBlood Group : "+sent.getBloodGroup()+"\nAddress:"+sent.getState()+" "+sent.getDistrict()+" "+sent.getTehsil()+"\nMobile Number :"+sent.getMobile());
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Hello.\n"+"Here is the Information about blood Donor:\n"+sent.getFName()+" "+sent.getLName()+"\nBlood Group : "+sent.getBloodGroup()+"\nAddress:"+sent.getState()+" "+sent.getDistrict()+" "+sent.getTehsil()+"\nMobile Number :"+sent.getMobile());
             sendIntent.setType("text/plain");
             Intent shareIntent = Intent.createChooser(sendIntent, "Be Hero, Donate Blood.");
             startActivity(shareIntent);
+
         });
-
-        list.setLayoutManager(new LinearLayoutManager(DispalyRequestsActivity.this));
+        list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
-
         districtFilter.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -128,43 +133,51 @@ public class DispalyRequestsActivity extends AppCompatActivity {
         });
     }
 
-    public void viewDonorsList(View view) {
-        startActivity(new Intent(DispalyRequestsActivity.this,DisplayDonorsActivity.class));
-        this.finish();
+    private void updateVisible(boolean b) {
+        HashMap<String, Object> updateValues = new HashMap<>();
+
+        if(b){
+            updateValues.put("Visible","True");
+        }else {
+            updateValues.put("Visible","False");
+        }
+        FirebaseDatabase.getInstance("https://madlabproject-17edc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Donors").child(uid).updateChildren(updateValues);
+    }
+
+    private void updateList(String s) {
+        System.out.println(s);
+        temp.clear();
+        for( User v : users){
+            if(v.getDistrict().toUpperCase().contains(s)||s.equalsIgnoreCase("ALL")) {
+                System.out.println(v.getDistrict());
+                temp.add(v);
+            }
+        }
+        adapter.updateList(temp);
     }
 
 
-    public void popUp(View view) {
-        popupMenu.show();
-    }
-
-
-
-    private void getRequests() {
-        FirebaseDatabase.getInstance().getReference("Donors").addValueEventListener(new ValueEventListener() {
+    private void getDonors() {
+        FirebaseDatabase.getInstance("https://madlabproject-17edc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Donors").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                requests.clear();
+                users.clear();
                 temp.clear();
                 for(DataSnapshot ds:snapshot.getChildren()){
                     User user = ds.getValue(User.class);
                     if(user.getStep().equals("Done")) {
-                        if (user.getRequestBlood().equals("True")) {
-                            requests.add(user);
+                        if (user.getVisible().equals("True")) {
+                            users.add(user);
                             temp.add(user);
                         }
                         if (user.getUID().equals(uid)) {
                             self = user;
-                            if (self.getRequestBlood().equals("True")) {
-                                requestCancelBtn.setText("Cancel Blood Request");
-                            } else {
-                                requestCancelBtn.setText("Request Blood");
-                            }
+                            popupMenu.getMenu().findItem(R.id.visibleDonors).setChecked(self.getVisible().equals("True"));
                         }
                     }
                 }
                 updateList(districtFilter.getText().toString());
-                adapter.notifyDataSetChanged();
+                filterList();
             }
 
             @Override
@@ -174,22 +187,20 @@ public class DispalyRequestsActivity extends AppCompatActivity {
         });
     }
 
-
-    public void requestBlood(View view) {
-        if(self.getRequestBlood().equals("True")){
-            updateBloodRequest(false);
-        }else {
-            updateBloodRequest(true);
-        }
+    private void filterList() {
+        adapter.notifyDataSetChanged();
     }
 
-    private void updateBloodRequest(boolean b) {
-        HashMap<String,Object> hashMap = new HashMap<>();
-        if(b){
-            hashMap.put("RequestBlood","True");
-        }else {
-            hashMap.put("RequestBlood","False");
-        }
-        FirebaseDatabase.getInstance().getReference("Donors").child(uid).updateChildren(hashMap);
+    public void viewRequestList(View view) {
+        startActivity(new Intent(DisplayDonorsActivity.this,DispalyRequestsActivity.class));
+        this.finish();
     }
+
+    public void popUp(View view) {
+
+        popupMenu.show();
+    }
+
+
+
 }

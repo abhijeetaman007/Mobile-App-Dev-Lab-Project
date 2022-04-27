@@ -1,4 +1,4 @@
-package com.Project.MADLabProject;
+package com.vinayak09.bloodbankbyvinayak;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,6 +41,7 @@ public class LoginScreenActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
+                                Toast.makeText(LoginScreenActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(LoginScreenActivity.this,SplashScreen.class));
                             }else {
                                 Toast.makeText(LoginScreenActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();

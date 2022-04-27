@@ -1,4 +1,4 @@
-package com.Project.MADLabProject;
+package com.vinayak09.bloodbankbyvinayak;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -75,7 +75,7 @@ public class RegisterIIActivity extends AppCompatActivity {
         values.put("Village",villageT);
         values.put("Step","2");
 
-        FirebaseDatabase.getInstance().getReference("Donors")
+        FirebaseDatabase.getInstance("https://madlabproject-17edc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Donors")
                 .child(uid).updateChildren(values);
     }
 

@@ -1,4 +1,4 @@
-package com.Project.MADLabProject;
+package com.vinayak09.bloodbankbyvinayak;
 
 import org.junit.Test;
 

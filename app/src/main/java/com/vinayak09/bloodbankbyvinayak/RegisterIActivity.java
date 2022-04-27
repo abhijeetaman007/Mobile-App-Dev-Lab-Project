@@ -1,5 +1,6 @@
-package com.Project.MADLabProject;
+package com.vinayak09.bloodbankbyvinayak;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -91,7 +92,7 @@ public class RegisterIActivity extends AppCompatActivity {
         values.put("Mobile","None");
         values.put("BloodGroup","None");
 
-        FirebaseDatabase.getInstance().getReference("Donors")
+        FirebaseDatabase.getInstance("https://madlabproject-17edc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Donors")
                 .child(uid).setValue(values).addOnCompleteListener(task -> {
                     if(task.isSuccessful()){
                         startActivity(new Intent(RegisterIActivity.this,RegisterIIActivity.class));

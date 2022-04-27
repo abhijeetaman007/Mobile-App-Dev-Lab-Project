@@ -1,13 +1,17 @@
-package com.Project.MADLabProject;
+package com.vinayak09.bloodbankbyvinayak;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +27,8 @@ import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
@@ -67,7 +73,7 @@ public class RegisterIIIActivity extends AppCompatActivity {
 
         @Override
         public void onVerificationFailed(FirebaseException e) {
-
+            Log.i("TAG", "onVerificationFailed: " + e.getMessage());
             if (e instanceof FirebaseAuthInvalidCredentialsException) {
                textVerification.setText("Failed!");
             } else if (e instanceof FirebaseTooManyRequestsException) {
@@ -98,7 +104,7 @@ public class RegisterIIIActivity extends AppCompatActivity {
         values.put("Mobile",mobile.getText().toString());
         values.put("BloodGroup",bloodgrp.getText().toString());
         values.put("Visible","True");
-        FirebaseDatabase.getInstance().getReference("Donors/"+FirebaseAuth.getInstance().getUid())
+        FirebaseDatabase.getInstance("https://madlabproject-17edc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Donors/"+FirebaseAuth.getInstance().getUid())
                 .updateChildren(values)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -119,6 +125,8 @@ public class RegisterIIIActivity extends AppCompatActivity {
         mobile.setEnabled(false);
         if(!isSubmit) {
             if (!isVerified && !mobile.getText().toString().isEmpty() && !bloodgrp.getText().toString().isEmpty()) {
+                Log.i("TAG", "verifyAndSubmit: " + mobile.getText().toString());
+
                 PhoneAuthOptions options = PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
                         .setPhoneNumber("+91" + mobile.getText().toString())
                         .setTimeout(60L, TimeUnit.SECONDS)
