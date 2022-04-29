@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -41,38 +42,38 @@ public class RegisterIIActivity extends AppCompatActivity {
     }
 
     public void registerIII(View view) {
-        String districtT,tehsilT,villageT,stateT;
+        String districtT,stateT;
         districtT = District.getText().toString();
-        tehsilT = Tehsil.getText().toString();
-        villageT = Village.getText().toString();
+//        tehsilT = Tehsil.getText().toString();
+//        villageT = Village.getText().toString();
         stateT = states.getText().toString();
 
-        if(!districtT.isEmpty() && !tehsilT.isEmpty() && !villageT.isEmpty() && !stateT.isEmpty() && !stateT.equalsIgnoreCase("State")){
-            addDataToFirebaseStorage(stateT,districtT,tehsilT,villageT,FirebaseAuth.getInstance().getUid());
+
+        if(!districtT.isEmpty() && !stateT.isEmpty() && !stateT.equalsIgnoreCase("State")){
+            addDataToFirebaseStorage(stateT,districtT,FirebaseAuth.getInstance().getUid());
         }
 
         if(stateT.isEmpty() || stateT.equalsIgnoreCase("state")){
             states.setError("Fill this field.");
+            Toast.makeText(this, "Fill State to continue", Toast.LENGTH_SHORT).show();
         }
-        if(districtT.isEmpty()){
+        else if(districtT.isEmpty()){
             District.setError("Fill this field.");
+            Toast.makeText(this, "Fill District to continue", Toast.LENGTH_SHORT).show();
         }
-        if(tehsilT.isEmpty()){
-            Tehsil.setError("Fill this field.");
+        else
+        {
+            startActivity(new Intent(RegisterIIActivity.this,RegisterIIIActivity.class));
         }
-        if(villageT.isEmpty()){
-            Village.setError("Fill this field.");
-        }
-        startActivity(new Intent(RegisterIIActivity.this,RegisterIIIActivity.class));
     }
 
-    private void addDataToFirebaseStorage(String stateT, String districtT, String tehsilT, String villageT, String uid) {
+    private void addDataToFirebaseStorage(String stateT, String districtT, String uid) {
 
         HashMap<String,Object> values = new HashMap<>();
         values.put("State",stateT);
         values.put("District",districtT);
-        values.put("Tehsil",tehsilT);
-        values.put("Village",villageT);
+//        values.put("Tehsil",tehsilT);
+//        values.put("Village",villageT);
         values.put("Step","2");
 
         FirebaseDatabase.getInstance("https://madlabproject-17edc-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Donors")

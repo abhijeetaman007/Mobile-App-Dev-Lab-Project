@@ -3,11 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/red_to_white.xml" value="0.1915" />
+        <entry key="app/src/main/res/drawable/blood_drop.xml" value="0.1915" />
+        <entry key="app/src/main/res/drawable/ic_baseline_call_24.xml" value="0.1915" />
+        <entry key="app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.1915" />
+        <entry key="app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.2715" />
         <entry key="app/src/main/res/layout/activity_dispaly_requests.xml" value="0.3578125" />
+        <entry key="app/src/main/res/layout/activity_display_donors.xml" value="0.3351449275362319" />
         <entry key="app/src/main/res/layout/activity_login_screen.xml" value="0.3578125" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/activity_register_i.xml" value="0.3578125" />
         <entry key="app/src/main/res/layout/activity_register_i_i.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_register_i_i_i.xml" value="0.3578125" />
+        <entry key="app/src/main/res/layout/details_donor_requester.xml" value="0.3351449275362319" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1915" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1915" />
       </map>
     </option>
   </component>

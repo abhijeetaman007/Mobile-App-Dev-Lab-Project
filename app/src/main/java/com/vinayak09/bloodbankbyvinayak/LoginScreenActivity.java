@@ -49,5 +49,16 @@ public class LoginScreenActivity extends AppCompatActivity {
                         }
                     });
         }
+        else
+        {
+            if(Email.getText().toString().isEmpty())
+            {
+                Toast.makeText(this, "Email is required", Toast.LENGTH_SHORT).show();
+            }
+            if(Pass.getText().toString().isEmpty())
+            {
+                Toast.makeText(this, "Password is required", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

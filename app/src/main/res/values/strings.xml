@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BloodBankByVinayak</string>
+    <string name="app_name">Hope</string>
 
     <string name="real_time_db_firebase">https://bloodbankbyvinayak-default-rtdb.firebaseio.com/</string>
 
@@ -27,6 +27,7 @@
         <item>Jammu &amp; Kashmir</item>
         <item>Jharkhand</item>
         <item>Kerala</item>
+        <item>Karnataka</item>
         <item>Madhya Pradesh</item>
         <item>Maharashtra</item>
         <item>Manipur</item>
