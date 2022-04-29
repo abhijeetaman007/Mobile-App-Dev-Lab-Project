@@ -11,13 +11,13 @@
     android:layout_height="120dp">
 
     <ImageView
+        android:id="@+id/bloodImg"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:padding="10dp"
-        android:layout_width="60dp"
-        android:id="@+id/bloodImg"
-        android:layout_height="60dp"
-        android:src="@drawable/blood_drop"/>
+        android:src="@drawable/blood_drop" />
     <LinearLayout
         android:id="@+id/linear1"
         android:layout_alignParentBottom="true"
