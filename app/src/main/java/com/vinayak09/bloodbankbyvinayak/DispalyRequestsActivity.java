@@ -108,7 +108,7 @@ public class DispalyRequestsActivity extends AppCompatActivity {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TITLE,"Be Hero, Donate Blood.");
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "*Its Urgent.*\n"+"Here is the Information about blood Request:\n"+sent.getFName()+" "+sent.getLName()+"\nBlood Group : "+sent.getBloodGroup()+"\nAddress: "+sent.getState()+"\nDistrict: "+sent.getDistrict()+" "+"\nMobile Number: "+sent.getMobile());
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "*Its Urgent.*\n"+"Here is the Information about blood Request:\n"+sent.getFName()+" "+sent.getLName()+"\nBlood Group : "+sent.getBloodGroup()+"\nDistrict: "+sent.getDistrict()+"\nState: "+sent.getState()+" "+"\nMobile Number: "+sent.getMobile());
             sendIntent.setType("text/plain");
             Intent shareIntent = Intent.createChooser(sendIntent, "Be Hero, Donate Blood.");
             startActivity(shareIntent);

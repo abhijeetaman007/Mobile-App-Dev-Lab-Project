@@ -53,22 +53,22 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder>{
         String state,district,tehsil,fname,village,bloodgroup;
         state = users.get(position).getState();
         district = users.get(position).getDistrict();
-        tehsil = users.get(position).getTehsil();
-        village = users.get(position).getVillage();
+//        tehsil = users.get(position).getTehsil();
+//        village = users.get(position).getVillage();
         bloodgroup = users.get(position).getBloodGroup();
         fname = String.format("%s %s", users.get(position).getFName(), users.get(position).getLName());
         String s = StringCaseConverter.convertToTitleCaseIteratingChars(fname);
         holder.state.setText(state);
         holder.district.setText(district);
-        holder.tehsil.setText(tehsil);
-        holder.village.setText(village);
+//        holder.tehsil.setText(tehsil);
+//        holder.village.setText(village);
         holder.fullName.setText(s);
         holder.bloodGroup.setText(bloodgroup);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             holder.state.setText(state);
             holder.district.setTooltipText(district);
-            holder.tehsil.setTooltipText(tehsil);
-            holder.village.setTooltipText(village);
+//            holder.tehsil.setTooltipText(tehsil);
+//            holder.village.setTooltipText(village);
             holder.fullName.setTooltipText(fname);
         }
 
@@ -99,8 +99,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserHolder>{
             bloodGroup = itemView.findViewById(R.id.detailBloodGroup);
             state = itemView.findViewById(R.id.detailState);
             district = itemView.findViewById(R.id.detailDistrict);
-            tehsil = itemView.findViewById(R.id.detailTehsil);
-            village = itemView.findViewById(R.id.detailVillage);
+//            tehsil = itemView.findViewById(R.id.detailTehsil);
+//            village = itemView.findViewById(R.id.detailVillage);
             call = itemView.findViewById(R.id.call);
             share = itemView.findViewById(R.id.share);
 
