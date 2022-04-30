@@ -1,4 +1,5 @@
-###  <center> Hope App : Mobile Application Dev Lab</center>
+### Mobile App Dev Lab
+###  <center> HOPE : A blood donation/request mobile app</center>
 #### Features
 
 - Realtime database
